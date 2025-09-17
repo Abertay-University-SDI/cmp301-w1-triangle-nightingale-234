@@ -13,12 +13,14 @@ struct InputType
 {
 	float4 position : POSITION;
 	float4 colour : COLOR;
+    float2 texture_ : TEXTURE;
 };
 
 struct OutputType
 {
 	float4 position : SV_POSITION;
 	float4 colour : COLOR;
+    float2 texture_ : TEXTURE; 
 };
 
 OutputType main(InputType input)
@@ -26,7 +28,7 @@ OutputType main(InputType input)
 	OutputType output;
 	
 	// Change the position vector to be 4 units for proper matrix calculations.
-	input.position.w = .5f;
+	input.position.w = 1.f;
 	// task 7 ^^
 	// 2 halfs the size so .5 doubles
     
@@ -35,7 +37,7 @@ OutputType main(InputType input)
 	output.position = mul(output.position, viewMatrix);
 	output.position = mul(output.position, projectionMatrix);
 
-	output.colour = input.colour;
+    output.texture_ = input.texture_;
 	
 
 	return output;
